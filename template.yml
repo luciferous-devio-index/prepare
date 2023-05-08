@@ -1,15 +1,11 @@
 Parameters:
   PrefixGitHubRepository:
     Type: String
+  OidcProviderGitHub:
+    Type: String
+    Default: arn:aws:iam::355081757265:oidc-provider/token.actions.githubusercontent.com
 
 Resources:
-  OidcProviderGitHub:
-    Type: AWS::IAM::OIDCProvider
-    Properties:
-      Url: https://token.actions.githubusercontent.com
-      ClientIdList: [ sts.amazonaws.com ]
-      ThumbprintList: [ 6938fd4d98bab03faadb97b34396831e3780aea1 ]
-
   RoleGitHubActionsCloudFormationDeploy:
     Type: AWS::IAM::Role
     Properties:
@@ -108,11 +104,6 @@ Resources:
 
   BucketLambdaArtifact:
     Type: AWS::S3::Bucket
-    Properties:
-      LifecycleConfiguration:
-        Rules:
-          - ExpirationInDays: 7
-            Status: Enabled
 
 Outputs:
   BucketNameLambdaArtifact:
